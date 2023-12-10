@@ -1,0 +1,184 @@
+<html>
+<head>
+
+  <title>SwapanthResume</title>
+  <link rel="stylesheet" type="text/css" href="styles.css">
+  <link href='https://fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic' rel='stylesheet' type='text/css'>
+ 
+  <style>
+    /* Your existing styles here */
+  </style>
+ 
+</head>
+<body>
+<!-- MAIN CONTAINER -->
+		<div id="main_container">
+      <!-- HEADER -->
+      <div id="header">
+        <!-- LOGOTYPE/NAME -->
+        <div class="header_logotype_container">
+          <h2 >SWAPANTH <span class="purple">Vakapalli</span></h2>
+          <h2  class="logotype_occupation">Frontend Web Developer</h2>
+        </div>
+        <!-- MAIN MENU -->
+        <div class="header_menu_container">
+         
+          <div class="clear"></div>
+          <ul class="header_menu horizontal_list">
+            <li><a  class="no_border purple" href="profile.html">Profile</a></li>
+            <li><a href="education.html">Education</a></li>
+            <li><a href="skills.html">Skills</a></li>
+            <li><a  href="internships.html">Internships</a></li>
+            <li><a  href="projects.html">Featured Projects</a></li>
+            <li><a  href="certification.html">Certifications</a></li>
+          </ul>
+          <img src="img/icons8-night-mode-24.png" alt="Click me" id="clickableImage" style="margin-left: 648px;margin-top: 15px;">
+        </div>
+      </div>
+      <!-- LEFT COL -->
+      <div id="left_col">
+      
+         
+             <img src="" alt="profile picture" class="profile_picture">
+       
+       
+        <div class="hello_content">
+      <h2>Hello!</h2>
+<p >I'm passionate about technology and hardworker and a fast-learner with X months experience in internship and volunteering different kind of college events.</p>
+    </div>
+    <div class="contact_details_content">
+      <h2>Contact details</h2>
+      <p class="purple">Phone:</p>
+<p >+91 7794022444</p>
+      <p class="purple">Email:</p>
+<p >swapanthvakapalli@gmail.com</p>
+      <p class="purple">Adress:</p>
+<p >Amalapuaram,533214</p>
+<p >Bankroad</p>
+<p >Basava-Complex</p>
+    </div>
+    <a href="mailto:swapanthvakapalli@gmail.com" class="send_message_button">
+      
+      <span class="content">Send me a message <span class="fontawesome-double-angle-right"></span></span>
+    </a>
+    <div class="get_social_content">
+      <h2>Get social</h2>
+      <ul class="social_icons horizontal_list">
+        <li><a class="facebook" href="https://www.facebook.com/swapanthvakapalli"><span class="entypo-facebook-circled"></span><span class="invisible">Facebook</span></a></li>
+        <li><a class="twitter" href="https://twitter.com/swapanthvakapalli"><span class="entypo-twitter-circled"></span><span class="invisible">Twitter</span></a></li>
+        <li><a class="linkedin" href="https://www.linkedin.com/in/swapanthvakapalli/en"><span class="entypo-linkedin-circled"></span><span class="invisible">LinkedIn</span></a></li>
+      </ul>
+    </div>
+  </div>
+  <div id="content_container">
+  <div class="about-stats">
+    <B><h3 style="text-align: center; margin-left: 20px;">My Skills</h3></B>
+
+    <div class="progress-bars">
+        <div class="progress-bar">
+            <p class="prog-title">C</p>
+            <div class="progress-con">
+                <p class="prog-text">89%</p>
+                <div class="progress">
+                    <span class="html"></span>
+                </div>
+            </div>
+        </div>
+        <div class="progress-bar">
+            <p class="prog-title">HTML & CSS</p>
+            <div class="progress-con">
+                <p class="prog-text">90%</p>
+                <div class="progress">
+                    <span class="css"></span>
+                </div>
+            </div>
+        </div>
+        <div class="progress-bar">
+            <p class="prog-title">JAVASCRIPT</p>
+            <div class="progress-con">
+                <p class="prog-text">65%</p>
+                <div class="progress">
+                    <span class="js"></span>
+                </div>
+            </div>
+        </div>
+        <div class="progress-bar">
+            <p class="prog-title">ReactJS</p>
+            <div class="progress-con">
+                <p class="prog-text">60%</p>
+                <div class="progress">
+                    <span class="react"></span>
+                </div>
+            </div>
+        </div>
+        <div class="progress-bar">
+            <p class="prog-title">JAVA</p>
+            <div class="progress-con">
+                <p class="prog-text">87%</p>
+                <div class="progress">
+                    <span class="node"></span>
+                </div>
+            </div>
+        </div>
+        <div class="progress-bar">
+            <p class="prog-title">Python</p>
+            <div class="progress-con">
+                <p class="prog-text">70%</p>
+                <div class="progress">
+                    <span class="python"></span>
+                </div>
+            </div>
+        </div>
+      </div>
+   
+    
+     <div class="new">
+      <h3 style="text-align: center; margin-left: 50;">Non-Technical Skills</h3>
+      <br>
+<ul>
+  <li style="margin-left: 20px;" >Communication Skills</li>
+  <li style="margin-left: 20px;" >Problem Solving Skills</li>
+  <li style="margin-left: 20px;" >Critical Thinking</li>
+  <li style="margin-left: 20px;" >Leader Ship skills</li>
+</ul>
+</div>
+
+    </div>
+  </div>
+  <div class="clear"></div>
+  <!-- FOOTER -->
+  <div id="footer">
+    <p class="footer_name">-Swapanth</p>
+  </div>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      // Check if the user has a dark mode preference stored
+      const isDarkMode = localStorage.getItem('darkMode') === 'true';
+  
+      // Apply dark mode styles if the preference is true
+      if (isDarkMode) {
+        document.body.classList.add('clickable-active');
+      }
+  
+      var clickableImage = document.getElementById('clickableImage');
+  
+      document.addEventListener('click', function (event) {
+        if (event.target === clickableImage) {
+          event.stopPropagation();
+          document.body.classList.toggle('clickable-active');
+  
+          // Store the user's preference in localStorage
+          const isDarkModeNow = document.body.classList.contains('clickable-active');
+          localStorage.setItem('darkMode', isDarkModeNow.toString());
+        }
+      });
+    });
+  </script>
+  
+  
+  
+
+
+
+</body>
+</html>
