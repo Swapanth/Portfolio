@@ -1,0 +1,94 @@
+Here is the R code for each task.
+
+1. Create a Data Frame and Perform Extract Operations
+
+# Create a Data Frame
+emp_data <- data.frame(
+  EMP_ID = c(1, 2, 3, 4, 5),
+  EMP_NAME = c("Satish", "Vani", "Ramesh", "Praveen", "Pallavi"),
+  SALARY = c(5000, 7500, 10000, 9500, 4500),
+  START_DATE = as.Date(c("2013-11-01", "2011-06-05", "1999-09-21", "2005-09-13", "2000-10-23"), format="%Y-%m-%d")
+)
+
+# a. Extract two column names
+columns_extracted <- emp_data[, c("EMP_NAME", "SALARY")]
+print(columns_extracted)
+
+# b. Extract the first two rows and all columns
+first_two_rows <- emp_data[1:2, ]
+print(first_two_rows)
+
+# c. Extract 3rd & 5th row with 2nd and 4th column
+rows_3_5_columns_2_4 <- emp_data[c(3, 5), c("EMP_NAME", "START_DATE")]
+print(rows_3_5_columns_2_4)
+
+1B. Concatenate Two Matrices
+
+# Create two matrices with the same column count
+matrix1 <- matrix(1:6, nrow=2, ncol=3)
+matrix2 <- matrix(7:12, nrow=2, ncol=3)
+
+# Concatenate the matrices by row
+concatenated_matrix <- rbind(matrix1, matrix2)
+print(concatenated_matrix)
+
+2A. Visualize Statistical Measures (Mean, Median, Range)
+
+# Sample data
+data <- c(10, 20, 15, 25, 30)
+
+# Calculate and print statistical measures
+mean_value <- mean(data)
+median_value <- median(data)
+range_value <- range(data)
+mode_value <- as.numeric(names(sort(table(data), decreasing=TRUE))[1])
+
+cat("Mean:", mean_value, "\n")
+cat("Median:", median_value, "\n")
+cat("Range:", range_value, "\n")
+cat("Mode:", mode_value, "\n")
+
+2B. Save and Display Data Frame in a File
+
+# Save data frame to a CSV file
+write.csv(emp_data, "emp_data.csv", row.names = FALSE)
+
+# Read the data from the file and display it
+emp_data_from_file <- read.csv("emp_data.csv")
+print(emp_data_from_file)
+
+3A. Create and Modify a Data Frame
+
+# Create a Data Frame with 10 observations and 3 variables
+data_frame <- data.frame(
+  Var1 = rnorm(10),
+  Var2 = rnorm(10),
+  Var3 = rnorm(10)
+)
+
+# Add new row and column using rbind and cbind
+new_row <- data.frame(Var1 = 0.5, Var2 = -0.5, Var3 = 1.0)
+data_frame <- rbind(data_frame, new_row)
+data_frame$Var4 <- rnorm(11)  # Adding a new column
+
+print(data_frame)
+
+3B. Display Duplicated Elements and Unique Rows
+
+# Create a data frame using two vectors
+vec1 <- c(1, 2, 3, 4, 5, 3, 2, 1, 4, 5)
+vec2 <- c("A", "B", "C", "D", "E", "C", "B", "A", "D", "E")
+data_frame <- data.frame(vec1, vec2)
+
+# Display duplicated elements and unique rows
+duplicated_elements <- data_frame[duplicated(data_frame), ]
+unique_rows <- unique(data_frame)
+
+cat("Duplicated elements:\n")
+print(duplicated_elements)
+
+cat("Unique rows:\n")
+print(unique_rows)
+
+These scripts cover the tasks mentioned in R, including data frame operations, matrix concatenation, and statistical analysis. Let me know if you need further clarification or modifications.
+
