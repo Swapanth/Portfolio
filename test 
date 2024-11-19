@@ -1,207 +1,126 @@
-#include <stdio.h>
-#include <stdlib.h>
+Question 1:
 
-// Define the structure of a node
-typedef struct Node {
-    int key;
-    struct Node *left, *right;
-    int height;
-} Node;
+Part A:
 
-// Function to get the height of a node
-int height(Node *node) {
-    return node == NULL ? 0 : node->height;
-}
+(a) Create a Data Frame:
 
-// Function to get the balance factor of a node
-int getBalance(Node *node) {
-    return node == NULL ? 0 : height(node->left) - height(node->right);
-}
+# Create a Data Frame
+emp_data <- data.frame(
+  EMP_ID = c(1, 2, 3, 4, 5),
+  EMP_NAME = c("Satish", "Vani", "Ramesh", "Praveen", "Pallavi"),
+  SALARY = c(5000, 7500, 10000, 9500, 4500),
+  START_DATE = as.Date(c("2013-11-01", "2011-06-05", "1999-09-21", "2005-09-13", "2000-10-23"))
+)
+print(emp_data)
 
-// Function to create a new node
-Node *createNode(int key) {
-    Node *node = (Node *)malloc(sizeof(Node));
-    node->key = key;
-    node->left = node->right = NULL;
-    node->height = 1; // New node is initially at height 1
-    return node;
-}
+(b) Extract two column names using column name:
 
-// Right rotate the subtree rooted at y
-Node *rightRotate(Node *y) {
-    Node *x = y->left;
-    Node *T2 = x->right;
+# Extract two columns
+two_columns <- emp_data[, c("EMP_NAME", "SALARY")]
+print(two_columns)
 
-    // Perform rotation
-    x->right = y;
-    y->left = T2;
+(c) Extract the first two rows and all columns:
 
-    // Update heights
-    y->height = 1 + (height(y->left) > height(y->right) ? height(y->left) : height(y->right));
-    x->height = 1 + (height(x->left) > height(x->right) ? height(x->left) : height(x->right));
+# Extract first two rows and all columns
+first_two_rows <- emp_data[1:2, ]
+print(first_two_rows)
 
-    // Return new root
-    return x;
-}
+(d) Extract 3rd & 5th rows with 2nd and 4th columns:
 
-// Left rotate the subtree rooted at x
-Node *leftRotate(Node *x) {
-    Node *y = x->right;
-    Node *T2 = y->left;
+# Extract specific rows and columns
+specific_data <- emp_data[c(3, 5), c(2, 4)]
+print(specific_data)
 
-    // Perform rotation
-    y->left = x;
-    x->right = T2;
+Part B:
 
-    // Update heights
-    x->height = 1 + (height(x->left) > height(x->right) ? height(x->left) : height(x->right));
-    y->height = 1 + (height(y->left) > height(y->right) ? height(y->left) : height(y->right));
+Concatenate two matrices:
 
-    // Return new root
-    return y;
-}
+# Create two matrices
+matrix1 <- matrix(1:6, nrow = 2, ncol = 3)
+matrix2 <- matrix(7:12, nrow = 2, ncol = 3)
 
-// Insert a key into the AVL tree
-Node *insert(Node *node, int key) {
-    if (node == NULL)
-        return createNode(key);
-
-    // Perform standard BST insertion
-    if (key < node->key)
-        node->left = insert(node->left, key);
-    else if (key > node->key)
-        node->right = insert(node->right, key);
-    else
-        return node; // Duplicate keys not allowed
-
-    // Update height of this ancestor node
-    node->height = 1 + (height(node->left) > height(node->right) ? height(node->left) : height(node->right));
-
-    // Get the balance factor
-    int balance = getBalance(node);
-
-    // If the node becomes unbalanced, perform rotations
-    if (balance > 1 && key < node->left->key) // Left-Left case
-        return rightRotate(node);
-
-    if (balance < -1 && key > node->right->key) // Right-Right case
-        return leftRotate(node);
-
-    if (balance > 1 && key > node->left->key) { // Left-Right case
-        node->left = leftRotate(node->left);
-        return rightRotate(node);
-    }
-
-    if (balance < -1 && key < node->right->key) { // Right-Left case
-        node->right = rightRotate(node->right);
-        return leftRotate(node);
-    }
-
-    return node; // Return the unchanged node pointer
-}
-
-// Get the node with the smallest value (used in deletion)
-Node *minValueNode(Node *node) {
-    Node *current = node;
-    while (current->left != NULL)
-        current = current->left;
-    return current;
-}
-
-// Delete a key from the AVL tree
-Node *deleteNode(Node *root, int key) {
-    if (root == NULL)
-        return root;
-
-    // Perform standard BST deletion
-    if (key < root->key)
-        root->left = deleteNode(root->left, key);
-    else if (key > root->key)
-        root->right = deleteNode(root->right, key);
-    else {
-        // Node with only one child or no child
-        if ((root->left == NULL) || (root->right == NULL)) {
-            Node *temp = root->left ? root->left : root->right;
-            if (temp == NULL) { // No child case
-                temp = root;
-                root = NULL;
-            } else // One child case
-                *root = *temp;
-            free(temp);
-        } else {
-            // Node with two children: Get the inorder successor
-            Node *temp = minValueNode(root->right);
-            root->key = temp->key;
-            root->right = deleteNode(root->right, temp->key);
-        }
-    }
-
-    if (root == NULL)
-        return root;
-
-    // Update height of the current node
-    root->height = 1 + (height(root->left) > height(root->right) ? height(root->left) : height(root->right));
-
-    // Get the balance factor
-    int balance = getBalance(root);
-
-    // If the node becomes unbalanced, perform rotations
-    if (balance > 1 && getBalance(root->left) >= 0) // Left-Left case
-        return rightRotate(root);
-
-    if (balance > 1 && getBalance(root->left) < 0) { // Left-Right case
-        root->left = leftRotate(root->left);
-        return rightRotate(root);
-    }
-
-    if (balance < -1 && getBalance(root->right) <= 0) // Right-Right case
-        return leftRotate(root);
-
-    if (balance < -1 && getBalance(root->right) > 0) { // Right-Left case
-        root->right = rightRotate(root->right);
-        return leftRotate(root);
-    }
-
-    return root;
-}
-
-// Print the tree in in-order traversal
-void inOrder(Node *root) {
-    if (root != NULL) {
-        inOrder(root->left);
-        printf("%d ", root->key);
-        inOrder(root->right);
-    }
-}
-
-// Main function
-int main() {
-    Node *root = NULL;
-
-    // Insert nodes
-    root = insert(root, 10);
-    root = insert(root, 20);
-    root = insert(root, 30);
-    root = insert(root, 40);
-    root = insert(root, 50);
-    root = insert(root, 25);
-
-    printf("Inorder traversal of the AVL tree:\n");
-    inOrder(root);
-
-    // Delete a node
-    root = deleteNode(root, 40);
-    printf("\n\nInorder traversal after deletion of 40:\n");
-    inOrder(root);
-
-    return 0;
-}
+# Concatenate matrices
+concatenated_matrix <- rbind(matrix1, matrix2)
+print(concatenated_matrix)
 
 
+---
+
+Question 2:
+
+Part A:
+
+Visualize all Statistical Measures:
+
+# Sample data
+data <- c(12, 18, 20, 24, 30, 32, 36, 40)
+
+# Calculate measures
+mean_value <- mean(data)
+median_value <- median(data)
+mode_value <- names(sort(table(data), decreasing = TRUE))[1]
+range_value <- range(data)
+
+# Print results
+cat("Mean:", mean_value, "\n")
+cat("Median:", median_value, "\n")
+cat("Mode:", mode_value, "\n")
+cat("Range:", range_value, "\n")
+
+# Visualization
+boxplot(data, main = "Boxplot of Data")
+
+Part B:
+
+Save and Display Data Frame Information:
+
+# Save data frame to a file
+write.csv(emp_data, "employee_data.csv", row.names = FALSE)
+
+# Read and display data
+data_from_file <- read.csv("employee_data.csv")
+print(data_from_file)
 
 
-Inorder traversal of the AVL tree:
-10 20 25 30 40 50 
+---
 
-Inorder traversal after deletion of 40:
-10 20 25 30 50
+Question 3:
+
+Part A:
+
+Create Data Frame and Add Rows and Columns:
+
+# Create a Data Frame
+df <- data.frame(
+  Var1 = rnorm(10),
+  Var2 = runif(10),
+  Var3 = sample(1:100, 10)
+)
+
+# Add a new row
+new_row <- data.frame(Var1 = 5.6, Var2 = 0.8, Var3 = 45)
+df <- rbind(df, new_row)
+
+# Add a new column
+df$Var4 <- df$Var1 + df$Var2
+print(df)
+
+Part B:
+
+Handle Duplicates and Unique Rows:
+
+# Create a data frame
+vector1 <- c(1, 2, 3, 2, 4, 5)
+vector2 <- c(6, 7, 8, 7, 9, 10)
+df <- data.frame(V1 = vector1, V2 = vector2)
+
+# Find duplicated elements
+duplicated_elements <- df[duplicated(df), ]
+print("Duplicated Elements:")
+print(duplicated_elements)
+
+# Find unique rows
+unique_rows <- unique(df)
+print("Unique Rows:")
+print(unique_rows)
+
